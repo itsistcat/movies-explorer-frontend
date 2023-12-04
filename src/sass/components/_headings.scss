@@ -136,10 +136,10 @@
 .footer__heading {
   width: 100%;
   margin: 0;
+  $space-between: 20px;
   margin-bottom: $space-between;
   padding-bottom: $space-between;
   $font-size: 1.3rem;
-  $space-between: 20px;
   grid-area: heading;
   color: $color-back-add-1;
   text-align: center;
