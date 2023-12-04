@@ -1,0 +1,36 @@
+.progress-bar {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  background-color: $color-back-add;
+
+  > * {
+    padding: 10px 0;
+    @include font($size: 1.4rem, $line-height: calc(1.7rem / 1.4rem));
+    letter-spacing: 0;
+
+    @media screen and (max-width: $media-mobile-l) {
+      padding-top: 11px;
+      padding-bottom: 11px;
+      $font-size-xs: 1.1rem;
+      font-size: $font-size-xs;
+      line-height: calc(1.3rem / $font-size-xs);
+    }
+  }
+
+  &__stage-1 {
+    flex-grow: 1;
+    background-color: $color-accent-1;
+  }
+
+  &__stage-2 {
+    flex-grow: 5.05;
+
+    @media screen and (max-width: $media-laptop) {
+      flex-grow: 5.8;
+    }
+    @media screen and (max-width: $media-mobile-l) {
+      flex-grow: 2.6;
+    }
+  }
+}

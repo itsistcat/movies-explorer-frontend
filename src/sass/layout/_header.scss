@@ -1,0 +1,36 @@
+.header {
+  &__wrapper {
+    display: flex;
+    column-gap: 44px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -2px;
+    padding: 18px 70px;
+    margin-right: 0;
+    margin-left: 0;
+
+    &_color{
+      background-color: $color-back-sec;
+      color: $color-text-promo;
+    }
+
+    @media screen and (max-width: $media-laptop) {
+      padding: 18px 30px;
+    }
+
+    @media screen and (max-width: calc($media-tablet - 1px)) {
+      padding: 18px 15px;
+    }
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+    max-width: 183px;
+
+    @media screen and (max-width: $media-mobile-l) {
+      column-gap: 14px;
+    }
+  }
+}

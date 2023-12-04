@@ -1,0 +1,54 @@
+.entrance {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: $entrance-form-width;
+    margin: 0 auto;
+    padding: 5.5% 0;
+
+    @media screen and (max-width: $media-laptop) {
+      padding-top: 30%;
+      padding-bottom: 30%;
+    }
+
+    @media screen and (max-width: $media-mobile-l) {
+      align-items: center;
+      max-width: 260px;
+      padding-top: 18%;
+      padding-bottom: 18%;
+    }
+  }
+
+  &__form {
+    $font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    @include font($size: $font-size,
+      $line-height: calc(1.2rem / $font-size),
+      $letter-spacing: 0);
+    color: $color-back-add-1;
+  }
+
+  &__fieldset {
+    padding: 0;
+    margin: 0 0 68px;
+    border: none;
+
+    @media screen and (max-width: $media-mobile-l) {
+      margin-bottom: 160px;
+    }
+
+    &_margin_big {
+      margin-bottom: 157px;
+
+      @media screen and (max-width: $media-laptop) {
+        margin-bottom: 155px;
+      }
+
+      @media screen and (max-width: $media-mobile-l) {
+        margin-bottom: 247px;
+      }
+    }
+  }
+}

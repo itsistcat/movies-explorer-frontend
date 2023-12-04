@@ -1,0 +1,230 @@
+.promo__heading {
+  $font-size-maptop: 4rem;
+  margin: 0;
+  max-width: 640px;
+  text-align: start;
+  color: $color-text-promo;
+  $letter-spacing: 0;
+
+  @media screen and (max-width: $media-desktop) {
+    max-width: calc(669px + (61 + 61 * 0.7) * (100vw - $media-tablet) / 1280);
+    font-size: calc($font-size-maptop + (14 + 14 * 0.7) * (100vw - $media-tablet) / 1279);
+  }
+
+  @media screen and (max-width: $media-laptop) {
+    max-width: 680px;
+    text-align: center;
+    line-height: calc(5.2rem / $font-size-maptop);
+  }
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    text-align: center;
+    $font-size-xs: 2.9rem;
+    font-size: calc($font-size-xs + (14 + 14 * 0.7) * (100vw - $media-mobile-s) / 767);
+    line-height: calc(3.7rem / $font-size-xs);
+  }
+}
+
+.techs__heading {
+  @media screen and (max-width: $media-mobile-l) {
+    border-bottom-color: $color-text-accent;
+  }
+}
+
+
+
+.section-heading-main {
+  margin: 0;
+
+  @include font($size: $font-size-xl,
+    $line-height: calc(5.8rem / $font-size-xl),
+    $letter-spacing: 0);
+
+  @media screen and (max-width: $media-laptop) {
+    line-height: 1.22;
+    font-size: $font-size-l,
+  }
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    font-size: calc(3rem + (20 + 20 * 0.7) * (100vw - $media-mobile-s) / 767);
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    line-height: calc(3.8rem / 3rem);
+    letter-spacing: -0.1rem;
+  }
+}
+
+.section-heading-main-tech {
+  margin: 0;
+
+  @include font($size: $font-size-xl,
+    $line-height: calc(5.8rem / $font-size-xl),
+    $letter-spacing: -0.2rem);
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    font-size: calc(3rem + (20 + 20 * 0.7) * (100vw - $media-mobile-s) / 767);
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    line-height: calc(3.7rem / 3rem);
+    letter-spacing: -0.1rem;
+  }
+}
+
+.section-heading {
+  margin: 0;
+  padding-bottom: 23px;
+
+  @include font($size: $font-size-s,
+    $line-height: calc(2.7rem / $font-size-s),
+    $letter-spacing: -0.1rem);
+
+  @include border-bottom();
+
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size-xs: 1.8rem;
+
+    font-size: $font-size-xs;
+    line-height: calc(2.2rem / $font-size-xs);
+    letter-spacing: -0.07rem;
+    padding-bottom: 28px;
+  }
+}
+
+.about-me__heading {
+  $font-size-maptop: 4rem;
+
+  @media screen and (max-width: $media-desktop) {
+    font-size: calc($font-size-maptop + (14 + 14 * 0.7) * (100vw - $media-tablet) / 1279);
+  }
+
+  @media screen and (max-width: $media-laptop) {
+    line-height: calc(3.5rem / $font-size-maptop);
+  }
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    padding-top: 47px;
+  }
+}
+
+.about-me__subheading {
+  margin: 0;
+  padding-top: 18px;
+
+  @include font($family: "Inter-Medium",
+    $weight: 500,
+    $size: 1.8rem,
+    $line-height: calc(2rem / 1.8rem),
+    $letter-spacing: 0);
+
+  @media screen and (max-width: $media-laptop) {
+    $font-size: 1.2rem;
+    padding-top: 20px;
+    font-size: $font-size;
+    line-height: calc(1.8rem / $font-size);
+  }
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    $font-size-xs: 1.1rem;
+    padding-top: 22px;
+    font-size: $font-size-xs;
+    line-height: calc(1.6rem / $font-size-xs);
+  }
+}
+
+.footer__heading {
+  width: 100%;
+  margin: 0;
+  margin-bottom: $space-between;
+  padding-bottom: $space-between;
+  $font-size: 1.3rem;
+  $space-between: 20px;
+  grid-area: heading;
+  color: $color-back-add-1;
+  text-align: center;
+  @include border-bottom($color: $color-back-tech-item);
+
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size-xs: 1.2rem;
+    margin-bottom: 32px;
+    font-size: $font-size-xs;
+    line-height: calc(1.5rem / $font-size-xs);
+  }
+}
+
+.portfolio__heading {
+  $font: 1.8rem;
+  margin: 0;
+
+  @include font($size: $font,
+    $line-height: calc(2rem / $font),
+    $letter-spacing: 0);
+  color: $color-back-add-2;
+
+  @media screen and (max-width: $media-laptop) {
+    color: $color-back-add-2;
+  }
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    $font-size-xs: 1.4rem;
+    font-size: calc($font-size-xs + (4 + 4 * 0.7) * (100vw - $media-mobile-s) / 767);
+    line-height: calc(2rem / $font-size-xs);
+  }
+}
+
+.portfolio__project-heading {
+  margin: 0;
+
+  @include font($size: $font-size-m,
+    $line-height: calc(5rem / $font-size-m),
+    $letter-spacing: -0.12rem);
+
+  @media screen and (max-width: $media-laptop) {
+    $font-size: 2.8rem;
+    font-size: $font-size;
+    line-height: calc(5rem / $font-size);
+  }
+
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    $font-size-xs: 1.8rem;
+    font-size: calc($font-size-xs + (10 + 10 * 0.7) * (100vw - $media-mobile-s) / 767);
+    line-height: calc(2.8rem / $font-size-xs);
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    letter-spacing: -0.07rem;
+  }
+}
+
+.entrance__heading {
+  $font-size: 2.4rem;
+  margin: 0;
+  padding: 40px 0;
+
+  @include font($family: "Inter-Medium",
+    $weight: 500,
+    $size: $font-size,
+    $line-height: calc(2.9rem / $font-size),
+    $letter-spacing: 0);
+
+  @media screen and (max-width: $media-mobile-l) {
+    padding-top: 46px;
+    padding-bottom: 80px;
+  }
+}
+
+.not-found__heading {
+  margin: 0;
+
+  @include font($size: $font-size-xxl,
+    $line-height: calc(16.9rem / $font-size-xxl),
+    $letter-spacing: 0);
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    $font-size-xs: 8rem;
+    font-size: calc(
+    $font-size-xs + (60 + 60 * 0.7) * (100vw - $media-mobile-s) / 767
+    );
+    line-height: calc(9.7rem / $font-size-xs);
+  }
+}
