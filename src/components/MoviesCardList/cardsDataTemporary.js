@@ -1,4 +1,4 @@
-import cardPhoto from "../../assets/images/img-card-book.jpg";
+import cardPhoto from "../../assets/images/img-33.png";
 
 export const cards = [
   {

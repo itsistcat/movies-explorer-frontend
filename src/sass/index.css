@@ -388,8 +388,8 @@ html {
 }
 @media screen and (max-width: 767px) {
   .wrapper {
-    margin-left: 0;
-    margin-right: 0;
+    margin-right: calc(18px + 54.4 * (100vw - 320px) / 767);
+    margin-left: calc(18px + 54.4 * (100vw - 320px) / 767);
   }
   .wrapper_indent_s {
     margin-right: calc(14px + 61.2 * (100vw - 320px) / 767);
