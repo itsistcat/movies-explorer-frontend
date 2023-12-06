@@ -429,6 +429,7 @@ html {
   padding: 18px 70px;
   margin-right: 0;
   margin-left: 0;
+  max-width: 100%;
 }
 .header__wrapper_color {
   background-color: #465DFF;
