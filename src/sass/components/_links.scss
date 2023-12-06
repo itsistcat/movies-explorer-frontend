@@ -1,0 +1,170 @@
+.link {
+  @include font($family: 'Inter-Medium',
+    $size: 1.2rem,
+    $line-height: calc(1.6rem / 1.2rem),
+    $weight: 500,
+    $letter-spacing: 0);
+  color: inherit;
+  text-decoration: none;
+  @extend %animation;
+
+  &:hover {
+    opacity: $opacity-medium;
+  }
+
+  &_color {
+    color: $color-text-primary;
+
+    &:hover {
+      opacity: $opacity-strong;
+    }
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size: 1rem;
+    font-size: $font-size;
+    line-height: calc(1.6rem / $font-size);
+  }
+
+  &_type_inner-nav {
+    @include font($size: $font-size-xxs,
+      $line-height: calc(1.7rem / $font-size-xxs),
+      $letter-spacing: 0.05rem);
+    color: $color-accent-2;
+
+    @media screen and (max-width: $media-mobile-l) {
+      $font-size-xs: 1.2rem;
+      font-size: $font-size-xs;
+      line-height: calc(1.5rem / $font-size-xs);
+    }
+  }
+}
+
+.promo__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 129px;
+  height: 36px;
+  margin: 0;
+  border-radius: 3px;
+  border: 1px solid #fff;
+  color: $color-text-promo;
+
+  @media screen and (max-width: $media-mobile-l) {
+    height: 34px;
+    letter-spacing: 1.3px;
+  }
+}
+
+.footer__links {
+  grid-area: links;
+  justify-self: end;
+  display: flex;
+  column-gap: 20px;
+
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size-xs: 1.2rem;
+    justify-self: auto;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 12px;
+    font-size: $font-size-xs;
+    line-height: calc(1.5rem / $font-size-xs);
+  }
+}
+
+.footer__link {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.portfolio__link {
+  @extend %flex-row;
+}
+
+.nav__link {
+  $font-size: 1.3rem;
+  @include font(
+    $family: "Inter-Regular",
+    $weight: 400,
+    $size: $font-size,
+    $line-height: calc(1.8rem / $font-size),
+    $letter-spacing: 0
+  );
+
+  @media screen and (max-width: $media-tablet) {
+    $font-size-xs: 1.8rem;
+
+    @include font(
+      $family: "Inter-Medium",
+      $weight: 500,
+      $size: $font-size-xs,
+      $line-height: calc(2.2rem / $font-size-xs),
+      $letter-spacing: 0
+    );
+  }
+}
+
+.nav__link-active {
+  font-family: "Inter-Medium";
+  font-weight: 500;
+
+  &:hover {
+    opacity: 100%;
+    cursor: default;
+  }
+  @media screen and (max-width: $media-tablet) {
+    padding-bottom: 4px;
+    @include border-bottom($width: 2px, $color: $color-text-primary);
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    padding-bottom: 6px;
+  }
+}
+
+.link-profile {
+  position: relative;
+
+  @extend %flex-row;
+  width: 100px;
+  height: 30px;
+
+  @include font($family: "Inter-Medium",
+    $weight: 500,
+    $size: $font-size-xxs,
+    $line-height: calc(1.6rem / $font-size-xxs),
+    $letter-spacing: 0);
+  text-align: start;
+  color: inherit;
+
+  background-color: transparent;
+
+  &::before {
+    content: url(../assets/icons/icon-profile.svg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    @extend %flex-column;
+    background-color: $color-icon-input;
+    border-radius: $border-radius-m;
+  }
+}
+
+.not-found__link {
+  @include font($size: $font-size-xxs,
+    $line-height: calc(1.7rem / $font-size-xxs),
+    $letter-spacing: 0);
+  color: $color-accent-2;
+
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size: 1.2rem;
+    font-size: $font-size;
+    line-height: calc(1.5rem / $font-size);
+  }
+}

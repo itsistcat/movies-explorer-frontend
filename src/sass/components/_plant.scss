@@ -1,0 +1,14 @@
+.plant {
+  &__position {
+    @media screen and (max-width: $media-mobile-l) {
+      max-width: 210px;
+      max-height: 206px;
+    }
+
+  }
+
+  @media screen and (max-width: $media-laptop) {
+    grid-row: 1;
+    align-self: center;
+  }
+}

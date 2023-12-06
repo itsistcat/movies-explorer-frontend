@@ -1,0 +1,133 @@
+.paragraph {
+  margin: 0;
+
+  @include font(
+    $size: $font-size-xxs,
+    $line-height: calc(2rem / $font-size-xxs),
+    $letter-spacing: 0
+  );
+
+  @media screen and (max-width: $media-laptop) {
+    $font-size: 1.2rem;
+    font-size: $font-size;
+    line-height: calc(1.8rem / $font-size);
+  }
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    $font-size-xs: 1.1rem;
+    font-size: $font-size-xs;
+    line-height: calc(1.6rem / $font-size-xs);
+  }
+}
+
+.paragraph-s {
+  @include font(
+    $family: "Inter-Medium",
+    $size: $font-size-xxs,
+    $line-height: calc(1.7rem / $font-size-xxs),
+    $letter-spacing: 0
+  );
+  text-decoration: none;
+  color: inherit;
+  @extend %animation;
+
+  &:hover {
+    opacity: $opacity-medium;
+  }
+  @media screen and (max-width: $media-laptop) {
+    padding-top: 22px;
+    padding-bottom: 83px;
+  }
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    $font-size: 1.1rem;
+    font-size: $font-size;
+    line-height: calc(1.6rem / $font-size);
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    padding-bottom: 52px;
+    font-size: $font-size-xxs;
+  }
+}
+
+.promo__paragraph{
+  max-width: 310px;
+  margin-top: 36px;
+  margin-bottom: 145px;
+  line-height: 1.23;
+  font-size: 1.3rem;
+  text-align: start;
+  color: $color-text-promo;
+
+  @media screen and (max-width: $media-laptop) {
+    margin-top: 25px;
+    margin-bottom: 91px;
+    text-align: center;
+    letter-spacing: 0.38px;
+    max-width: 260px;
+  }
+
+  @media screen and (max-width: $media-mobile-l) {
+    margin-bottom: 80px;
+    letter-spacing: 0;
+}
+}
+
+.techs__paragraph {
+  max-width: 460px;
+  padding: 25px 0 100px;
+  letter-spacing: -0.05rem;
+  text-align: center;
+
+  @media screen and (max-width: $media-laptop) {
+    padding: 25px 0 80px;
+  }
+  @media screen and (max-width: $media-mobile-l) {
+    padding: 23px 0 50px;
+}
+}
+
+.about-me__paragraph {
+  line-height: calc(2.2rem / $font-size-xxs);
+  padding: 26px 0 99px;
+
+  @media screen and (max-width: $media-laptop) {
+    padding-top: 20px;
+    padding-bottom: 105px;
+    line-height: calc(1.8rem / 1.2rem);
+  }
+  @media screen and (max-width: calc($media-tablet - 1px)) {
+    padding-bottom: 54px;
+    line-height: calc(1.6rem / 1.1rem);
+  }
+}
+
+.entrance__paragraph {
+  margin: 16px 0 0;
+
+  @extend %paragraph-s;
+  letter-spacing: 0.02rem;
+  color: $color-back-add-1;
+  text-align: center;
+
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size-xs: 1.2rem;
+    font-size: $font-size-xs;
+    line-height: calc(1.5rem / $font-size-xs);
+  }
+}
+
+.not-found__paragraph {
+  margin: 0;
+  $font-size: 1.6rem;
+
+  @include font(
+    $size: $font-size,
+    $line-height: calc(1.9rem / $font-size),
+    $letter-spacing: 0
+  );
+  @media screen and (max-width: $media-mobile-l) {
+    $font-size-xs: 1.2rem;
+    font-size: $font-size-xs;
+    line-height: calc(1.5rem / $font-size-xs);
+  }
+}
