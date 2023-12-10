@@ -8,6 +8,11 @@
   &:hover {
     opacity: $opacity-strong;
   }
+
+  &:disabled {
+    opacity: $opacity-btn-disabled;
+    cursor: default;
+  }
 }
 
 .btn-auth {
@@ -37,6 +42,8 @@
   background-color: $color-accent-2;
   border-radius: $border-radius-s;
 
+  transition: none;
+  transition: opacity 0.3s ease-in;
 }
 
 .btn-search {
@@ -48,7 +55,7 @@
   border-radius: 50%;
 
   &::before {
-    content: url("../assets/icons/icon-find.svg");
+    content: url("../../assets/icons/icon-find.svg");
   }
 }
 
@@ -88,6 +95,8 @@
     font-size: $font-size-xs;
     line-height: calc(1.5rem / $font-size-xs);
   }
+  transition: none;
+  transition: opacity 0.3s ease-in;
 }
 
 .btn-profile-exit {
@@ -110,5 +119,11 @@
 
     font-size: $font-size-xs;
     line-height: calc(1.5rem / $font-size-xs);
+  }
+}
+
+.btn-save {
+  @media screen and (max-width: $media-tablet) {
+    margin-bottom: 155px;
   }
 }

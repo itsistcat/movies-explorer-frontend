@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 77% 23%;
   width: 364px;
+  height: 271px;
   grid-template-areas:
     "description btn-favourite"
     "photo photo";
@@ -11,10 +12,12 @@
 
   @media screen and (max-width: $media-laptop) {
     width: 339px;
+    height: 258px;
   }
 
   @media screen and (max-width: $media-mobile-l) {
     width: 300px;
+    height: 236px;
   }
 
   &__description {
@@ -70,8 +73,22 @@
   }
 
   &__photo {
-    width: 100%;
     grid-area: photo;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
+    height: 203px;
+
+    @media screen and (max-width: $media-laptop) {
+      height: 190px;
+    }
+
+    @media screen and (max-width: calc($media-tablet - 1px)) {
+      height: 168px;
+    }
+  }
+
+  &__link {
+    grid-area: photo;
   }
 }

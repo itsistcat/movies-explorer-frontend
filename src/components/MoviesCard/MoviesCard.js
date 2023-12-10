@@ -1,15 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function MoviesCard({ card: { nameRU, duration, image }, icon }) {
+function MoviesCard({ movie, icon, onMovieSelect }) {
+  const { nameRU, duration, trailerLink, image, selected } = movie;
+
   function countTime(duration) {
     const time = duration / 60;
     const hours = Math.floor(time);
     const minutes = duration - hours * 60;
+
     if (hours && minutes) return `${hours}ч ${minutes}м`;
+
     return hours ? `${hours}ч` : `${minutes}м`;
   }
-  let isFavouriteCard = false;
+
   return (
     <article className="movies-card">
       <div className="movies-card__description">
@@ -18,27 +22,36 @@ function MoviesCard({ card: { nameRU, duration, image }, icon }) {
       </div>
       <button
         className={`btn movies-card__btn-favourite${
-          (isFavouriteCard && " movies-card__btn-favourite_active") || ""
+          (selected && " btn movies-card__btn-favourite_active") || ""
         }`}
         type="button"
-        aria-label="Добавление в избранные"
+        aria-label="Добавление карточки с фильмом в избранные"
+        onClick={(evt) => onMovieSelect(evt, movie)}
       >
         {icon}
       </button>
-      <img
-        className="movies-card__photo"
-        src={image}
-        alt={`Фильма - "${nameRU}"`}
-      />
+      <a
+        className="link movies-card__link"
+        href={trailerLink}
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          className="movies-card__photo"
+          src={
+            (image?.url && `https://api.nomoreparties.co${image?.url}`) || image
+          }
+          alt={`Постер фильма "${nameRU}"`}
+        />
+      </a>
     </article>
   );
 }
 
 MoviesCard.propTypes = {
-  card: PropTypes.object.isRequired,
-  nameRU: PropTypes.string,
-  duration: PropTypes.number,
-  image: PropTypes.string,
-  icon: PropTypes.element
+  movie: PropTypes.object,
+  icon: PropTypes.element,
+  onMovieSelect: PropTypes.func,
 };
+
 export default MoviesCard;
