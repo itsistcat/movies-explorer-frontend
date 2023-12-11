@@ -17,6 +17,16 @@
     font-size: $font-size-xs;
     line-height: calc(1.6rem / $font-size-xs);
   }
+
+  &_type_error {
+    max-width: 600px;
+
+    text-align: center;
+  }
+
+  &__nothing{
+    margin-top: 140px;
+  }
 }
 
 .paragraph-s {

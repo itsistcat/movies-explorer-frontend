@@ -1,0 +1,29 @@
+@keyframes loader{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+@-webkit-keyframes loader{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+
+.loader {
+  z-index: 10;
+margin-top: 140px;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  padding: 20px;
+  border-radius:150px;
+  border:15px solid $color-accent-1;
+  border-top-color: $color-checkbox-dis;
+  box-sizing:border-box;
+  position:absolute;
+  animation:loader 1.2s ease-in-out infinite;
+  -webkit-animation:loader 1.2s linear infinite;
+
+}

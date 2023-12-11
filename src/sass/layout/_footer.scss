@@ -27,6 +27,14 @@
       margin-top: 0;
     }
 
+    &_padding_xl {
+      padding-top: 175px;
+
+      @media screen and (max-width: $media-laptop) {
+        padding-top: 151px;
+      }
+    }
+
     >* {
       $font-size: 1.3rem;
 

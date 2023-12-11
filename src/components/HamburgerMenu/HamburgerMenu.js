@@ -4,23 +4,21 @@ import ModalWindow from "../ModalWindow/ModalWindow.js";
 import Navigation from "../Navigation/Navigation.js";
 
 function HamburgerMenu({
+  setIsModalWindowOpened,
   isModalWindowOpened,
-  isHamburgerMenuOpened,
-  closeModalWindow,
-  closeHamburgerMenuOnOutsideAndNavClick,
+  isHamburgerOpened,
+  setIsHamburgerOpened,
 }) {
   return (
     <ModalWindow
-      isModalWindowOpened={isModalWindowOpened}
-      isHamburgerMenuOpened={isHamburgerMenuOpened}
-      closeModalWindow={closeModalWindow}
-      closeHamburgerMenuOnOutsideAndNavClick={
-        closeHamburgerMenuOnOutsideAndNavClick
-      }
+    setIsModalWindowOpened={setIsModalWindowOpened}
+    isModalWindowOpened={isModalWindowOpened}
+    setIsHamburgerOpened={setIsHamburgerOpened}
+    isHamburgerOpened={isHamburgerOpened}
     >
       <div
         className={`hamburger-menu${
-          (isHamburgerMenuOpened && " hamburger-menu_opened") || ""
+          (isHamburgerOpened && " hamburger-menu_opened") || ""
         }`}
       >
         <div className="hamburger-menu__wrapper">
@@ -32,10 +30,10 @@ function HamburgerMenu({
 }
 
 HamburgerMenu.propTypes = {
+  setIsModalWindowOpened: PropTypes.func,
   isModalWindowOpened: PropTypes.bool,
-  isHamburgerMenuOpened: PropTypes.bool,
-  closeModalWindow: PropTypes.func,
-  closeHamburgerMenuOnOutsideAndNavClick: PropTypes.func,
+  isHamburgerOpened: PropTypes.bool,
+  setIsHamburgerOpened: PropTypes.func,
 };
 
 export default HamburgerMenu;

@@ -1,9 +1,14 @@
 .search-film {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  min-height: 68px;
 
-  @include border-bottom($color: $color-back-tech-item);
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: inherit;
+
+    @include border-bottom($color: $color-back-tech-item);
+  }
 
   &__input {
     $font-size: 2.8rem;

@@ -144,7 +144,7 @@
   background-color: transparent;
 
   &::before {
-    content: url(../assets/icons/icon-profile.svg);
+    content: url(../../assets/icons/icon-profile.svg);
     position: absolute;
     top: 0;
     right: 0;
@@ -161,6 +161,7 @@
     $line-height: calc(1.7rem / $font-size-xxs),
     $letter-spacing: 0);
   color: $color-accent-2;
+  background-color: transparent;
 
   @media screen and (max-width: $media-mobile-l) {
     $font-size: 1.2rem;
