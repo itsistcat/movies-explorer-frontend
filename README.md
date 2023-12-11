@@ -25,3 +25,6 @@ Frontend: https://films.nomoredomainsmonster.ru
 ### Шаблон (light-5)🎨: https://drive.google.com/drive/folders/1w0SzhaA2aiD_xnwAy-WrNGBBGPQJHxdR?usp=sharing
 
 ### Адрес репозитория💻: https://github.com/itsistcat/movies-explorer-frontend
+
+## Пул-реквест: https://github.com/itsistcat/movies-explorer-frontend/pull/4
+Изначально работа велась в level-3, однако я случайно сделала "merge pull request" и побоялась удалять данную ошибку, поэтому приношу свои извинения за это.
