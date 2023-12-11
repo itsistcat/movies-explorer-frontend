@@ -25,7 +25,7 @@ function MoviesCard({ movie, icon, onMovieSelect }) {
           (selected && " btn movies-card__btn-favourite_active") || ""
         }`}
         type="button"
-        aria-label="Добавление карточки с фильмом в избранные"
+        aria-label="Добавление в избранное"
         onClick={(evt) => onMovieSelect(evt, movie)}
       >
         {icon}

@@ -6,15 +6,15 @@ import Logo from "../Logo/Logo.js";
 import Navigation from "../Navigation/Navigation.js";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.js";
 import {
-  ENDPOINT_SIGNUP,
-  ENDPOINT_SIGNIN,
+  INITIALROUTE_SIGNUP,
+  INITIALROUTE_SIGNIN,
   TABLET_SCREEN_WIDTH,
 } from "../../utils/constants.js";
 
 
-function Header({ isCurrentUserLoggedIn }) {
+function Header({ IsUserLoggedIn }) {
   const [isModalWindowOpened, setIsModalWindowOpened] = useState(false);
-  const [isHamburgerMenuOpened, setIsHamburgerMenuOpened] = useState(false);
+  const [isHamburgerOpened, setIsHamburgerOpened] = useState(false);
 
   function openModalWindow() {
     setIsModalWindowOpened(true);
@@ -25,7 +25,7 @@ function Header({ isCurrentUserLoggedIn }) {
       openModalWindow();
     }
 
-    setIsHamburgerMenuOpened(!isHamburgerMenuOpened);
+    setIsHamburgerOpened(!isHamburgerOpened);
   }
 
   const href = useMatch({ path: `${window.location.pathname}`, end: false });
@@ -34,7 +34,7 @@ function Header({ isCurrentUserLoggedIn }) {
   const isMobileWidth = useWindowSize() <= TABLET_SCREEN_WIDTH;
 
   function renderHeaderMenu() {
-if (isRootHref && isCurrentUserLoggedIn){
+if (isRootHref && IsUserLoggedIn){
   if (isMobileWidth) {
     return (
       <div className="wrapper header__wrapper header__wrapper_color">
@@ -42,7 +42,7 @@ if (isRootHref && isCurrentUserLoggedIn){
         <Logo />
 
         <button
-          className={`btn hamburger ${(isHamburgerMenuOpened && " hamburger_clicked") || ""
+          className={`btn hamburger ${(isHamburgerOpened && " hamburger_clicked") || ""
             }`}
           type="button"
           aria-label="Навигация"
@@ -64,14 +64,14 @@ if (isRootHref && isCurrentUserLoggedIn){
   )
 }
 
-    if (isMobileWidth && isCurrentUserLoggedIn) {
+    if (isMobileWidth && IsUserLoggedIn) {
       return (
         <div className="wrapper header__wrapper">
 
           <Logo />
 
           <button
-            className={`btn hamburger ${(isHamburgerMenuOpened && " hamburger_clicked") || ""
+            className={`btn hamburger ${(isHamburgerOpened && " hamburger_clicked") || ""
               }`}
             type="button"
             aria-label="Навигация"
@@ -86,15 +86,15 @@ if (isRootHref && isCurrentUserLoggedIn){
       )
     }
 
-    if (!isCurrentUserLoggedIn) {
+    if (!IsUserLoggedIn) {
       return (
         <div className="wrapper header__wrapper  header__wrapper_color">
           <Logo />
           <div className="header__auth">
-            <Link className="link" to={ENDPOINT_SIGNUP}>
+            <Link className="link" to={INITIALROUTE_SIGNUP}>
               Регистрация
             </Link>
-            <Link className="link link_color btn-auth" to={ENDPOINT_SIGNIN}>
+            <Link className="link link_color btn-auth" to={INITIALROUTE_SIGNIN}>
               Войти
             </Link>
           </div>
@@ -122,14 +122,14 @@ if (isRootHref && isCurrentUserLoggedIn){
         <HamburgerMenu
         isModalWindowOpened={isModalWindowOpened}
         setIsModalWindowOpened={setIsModalWindowOpened}
-        isHamburgerMenuOpened={isHamburgerMenuOpened}
-        setIsHamburgerMenuOpened={setIsHamburgerMenuOpened}
+        isHamburgerOpened={isHamburgerOpened}
+        setIsHamburgerOpened={setIsHamburgerOpened}
         />
       )}
     </>
   );
 }
 Header.propTypes = {
-  isCurrentUserLoggedIn: PropTypes.bool,
+  IsUserLoggedIn: PropTypes.bool,
 };
 export default Header;

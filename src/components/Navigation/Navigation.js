@@ -2,10 +2,10 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import useWindowSize from "../../hooks/useWindowSize.js";
 import {
-  ENDPOINT_ROOT,
-  ENDPOINT_MOVIES,
-  ENDPOINT_SAVED_MOVIES,
-  ENDPOINT_PROFILE,
+  INITIALROUTE_ROOT,
+  INITIALROUTE_MOVIES,
+  INITIALROUTE_SAVED_MOVIES,
+  INITIALROUTE_PROFILE,
 } from "../../utils/constants.js";
 
 function Navigation() {
@@ -14,11 +14,11 @@ function Navigation() {
 
   const links = [
     {
-      path: ENDPOINT_MOVIES,
+      path: INITIALROUTE_MOVIES,
       label: "Фильмы",
     },
     {
-      path: ENDPOINT_SAVED_MOVIES,
+      path: INITIALROUTE_SAVED_MOVIES,
       label: "Сохранённые фильмы",
     },
   ];
@@ -40,11 +40,11 @@ function Navigation() {
 <div className="layout-nav">
       <nav className="nav">
         <ul className="list nav__list">
-        {isMobileWidth && createNavLink(ENDPOINT_ROOT, "Главная")}
+        {isMobileWidth && createNavLink(INITIALROUTE_ROOT, "Главная")}
           {links.map(({ path, label }) => createNavLink(path, label))}
         </ul>
       </nav>
-      <Link className="link link-profile" to={ENDPOINT_PROFILE}>
+      <Link className="link link-profile" to={INITIALROUTE_PROFILE}>
         Аккаунт
       </Link>
     </div>

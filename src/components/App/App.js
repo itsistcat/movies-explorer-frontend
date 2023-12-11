@@ -25,13 +25,13 @@ import { handleMovieServer } from "../../utils/MainApi.js";
 import { VALIDATION_MESSAGES, showDefaultError, } from "../../utils/validation.js";
 
 import {
-  ENDPOINT_ROOT,
-  ENDPOINT_SIGNUP,
-  ENDPOINT_SIGNIN,
-  ENDPOINT_MOVIES,
-  ENDPOINT_SAVED_MOVIES,
-  ENDPOINT_PROFILE,
-  ENDPOINT_ASTERISK,
+  INITIALROUTE_ROOT,
+  INITIALROUTE_SIGNUP,
+  INITIALROUTE_SIGNIN,
+  INITIALROUTE_MOVIES,
+  INITIALROUTE_SAVED_MOVIES,
+  INITIALROUTE_PROFILE,
+  INITIALROUTE_NOTHING,
   SHORT_FILM_DURATION,
 } from "../../utils/constants.js";
 
@@ -41,8 +41,8 @@ export default function App() {
   const [areMoviesLoading, setAreMoviesLoading] = useState(false);
   const [successMessages, setSuccessMessages] = useState("");
   const [errorMessages, setErrorMessages] = useState({
-    registrationResponse: "",
-    authorizationResponse: "",
+    registrationRes: "",
+    authorizationRes: "",
     updatingUserInfoResponse: "",
     moviesResponse: "",
   });
@@ -51,20 +51,20 @@ export default function App() {
     email: "",
     name: "",
   });
-  const [isCurrentUserLoggedIn, setIsCurrentUserLoggedIn] = useState(false);
+  const [IsUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isBtnSaveVisible, setIsBtnSaveVisible] = useState(false);
   const [allMovies, setAllMovies] = useState([]);
   const [filteredAllMovies, setFilteredMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [searchFormValue, setSearchFormValue] = useState("");
-  const [searchFormValueSavedMovies, setSearchFormValueSavedMovies] =
+  const [SearchValueFavoritesMovies, setSearchValueFavoritesMovies] =
     useState("");
   const [isFilterCheckboxMoviesChecked, setIsFilterCheckboxMoviesChecked] =
     useState(false);
   const [
     isFilterCheckboxSavedMoviesChecked,
-    setIsFilterCheckboxSavedMoviesChecked,
+    setIsCheckboxFavoritesMoviesChecked,
   ] = useState(false);
   const [isSearchRequestInProgress, setIsSearchRequestInProgress] =
     useState(false);
@@ -73,12 +73,12 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const pathSavedMovies = location.pathname === ENDPOINT_SAVED_MOVIES;
-  const pathMovies = location.pathname === ENDPOINT_MOVIES;
+  const pathSavedMovies = location.pathname === INITIALROUTE_SAVED_MOVIES;
+  const pathMovies = location.pathname === INITIALROUTE_MOVIES;
 
   const getLocalStorageData = (key) => localStorage.getItem(key);
 
-  function saveDataInLocalStorage(data, serverData) {
+  function saveDataLocally(data, serverData) {
     localStorage.setItem("search-request", searchFormValue || "");
 
     localStorage.setItem(
@@ -99,7 +99,7 @@ export default function App() {
     );
   }
 
-  async function loadSavedMoviesFromServer() {
+  async function loadFavoritesFromServer() {
     try {
       const res = await getSavedMovies();
       const data = await res;
@@ -113,7 +113,7 @@ export default function App() {
 
   function searchMovie(data) {
     if (pathMovies) setSearchFormValue(data);
-    if (pathSavedMovies) setSearchFormValueSavedMovies(data);
+    if (pathSavedMovies) setSearchValueFavoritesMovies(data);
   }
 
   function filterMovies(serverData) {
@@ -127,7 +127,7 @@ export default function App() {
     if (!movies?.length) return;
 
     const isNameCompliedWithSearchRequest = (name) => {
-      const value = pathMovies ? searchFormValue : searchFormValueSavedMovies;
+      const value = pathMovies ? searchFormValue : SearchValueFavoritesMovies;
 
       return name
         .toLowerCase()
@@ -169,7 +169,7 @@ export default function App() {
 
     if (pathMovies) {
       setFilteredMovies(data);
-      saveDataInLocalStorage(data, serverData);
+      saveDataLocally(data, serverData);
     }
 
     if (pathSavedMovies) {
@@ -183,10 +183,10 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (!isCurrentUserLoggedIn) {
+    if (!IsUserLoggedIn) {
       setErrorMessages({
-        registrationResponse: "",
-        authorizationResponse: "",
+        registrationRes: "",
+        authorizationRes: "",
         moviesResponse: "",
       });
     }
@@ -213,10 +213,10 @@ export default function App() {
 
     setHasUserSearched(JSON.parse(getLocalStorageData("user-search") || false));
 
-    if (isCurrentUserLoggedIn) {
-      loadSavedMoviesFromServer();
+    if (IsUserLoggedIn) {
+      loadFavoritesFromServer();
     }
-  }, [isCurrentUserLoggedIn]);
+  }, [IsUserLoggedIn]);
 
   // ПОЛЬЗОВАТЕЛИ
   async function handleUserRegistration({ email, password, name }) {
@@ -227,10 +227,10 @@ export default function App() {
 
       if (res.ok) {
         handleUserAuthorization({ email, password });
-        setErrorMessages({ registrationResponse: "" });
+        setErrorMessages({ registrationRes: "" });
       } else {
         setErrorMessages({
-          registrationResponse:
+          registrationRes:
             res.status === 500
               ? VALIDATION_MESSAGES.backend[500]
               : res.status === 409
@@ -247,7 +247,7 @@ export default function App() {
     }
   }
 
-  const handleLoginOn = () => setIsCurrentUserLoggedIn(true);
+  const handleLoginOn = () => setIsUserLoggedIn(true);
 
   async function handleUserAuthorization({ email, password }) {
     setIsProcessLoading(true);
@@ -256,20 +256,20 @@ export default function App() {
       const res = await authorizeUser(email, password);
 
       if (res.ok) {
-        setErrorMessages({ authorizationResponse: "" });
+        setErrorMessages({ authorizationRes: "" });
 
         const data = await res.json();
         const { token } = data;
         localStorage.setItem("jwt", token);
         handleLoginOn();
-        navigate(ENDPOINT_MOVIES, { replace: true });
+        navigate(INITIALROUTE_MOVIES, { replace: true });
 
         const userInfo = await getUserInfo(token);
         const { _id, email, name } = userInfo;
         setCurrentUser({ _id, email, name });
       } else {
         setErrorMessages({
-          authorizationResponse:
+          authorizationRes:
             res.status === 500
               ? VALIDATION_MESSAGES.backend[500]
               : res.status === 401
@@ -527,14 +527,14 @@ export default function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route
-            path={ENDPOINT_ROOT}
-            element={<Header isCurrentUserLoggedIn={isCurrentUserLoggedIn} />}
+            path={INITIALROUTE_ROOT}
+            element={<Header IsUserLoggedIn={IsUserLoggedIn} />}
           >
             <Route index element={<Main />} />
             <Route
-              path={ENDPOINT_MOVIES}
+              path={INITIALROUTE_MOVIES}
               element={
-                <ProtectedRoute isUserLoggedIn={isCurrentUserLoggedIn}>
+                <ProtectedRoute isUserLoggedIn={IsUserLoggedIn}>
                   <Movies
                     onSearch={searchMovie}
                     setIsSearchRequestInProgress={setIsSearchRequestInProgress}
@@ -551,38 +551,38 @@ export default function App() {
               }
             />
             <Route
-              path={ENDPOINT_SAVED_MOVIES}
+              path={INITIALROUTE_SAVED_MOVIES}
               element={
-                <ProtectedRoute isUserLoggedIn={isCurrentUserLoggedIn}>
+                <ProtectedRoute isUserLoggedIn={IsUserLoggedIn}>
                   <SavedMovies
                     movies={
                       isFilterCheckboxSavedMoviesChecked ||
-                      searchFormValueSavedMovies
+                      SearchValueFavoritesMovies
                         ? filteredSavedMovies
                         : savedMovies
                     }
                     onSearch={searchMovie}
                     onMovieSelect={handleMovieSelected}
-                    onFilter={setIsFilterCheckboxSavedMoviesChecked}
+                    onFilter={setIsCheckboxFavoritesMoviesChecked}
                     setIsSearchRequestInProgress={setIsSearchRequestInProgress}
                     isFilterCheckboxChecked={isFilterCheckboxSavedMoviesChecked}
-                    searchFormValue={searchFormValueSavedMovies}
+                    searchFormValue={SearchValueFavoritesMovies}
                     hasUserSearched={hasUserSearched}
                   />
                 </ProtectedRoute>
               }
             />
             <Route
-              path={ENDPOINT_PROFILE}
+              path={INITIALROUTE_PROFILE}
               element={
-                <ProtectedRoute isUserLoggedIn={isCurrentUserLoggedIn}>
+                <ProtectedRoute isUserLoggedIn={IsUserLoggedIn}>
                   <Profile
-                    setIsCurrentUserLoggedIn={setIsCurrentUserLoggedIn}
-                    setSearchFormValueSavedMovies={
-                      setSearchFormValueSavedMovies
+                    setIsUserLoggedIn={setIsUserLoggedIn}
+                    setSearchValueFavoritesMovies={
+                      setSearchValueFavoritesMovies
                     }
-                    setIsFilterCheckboxSavedMoviesChecked={
-                      setIsFilterCheckboxSavedMoviesChecked
+                    setIsCheckboxFavoritesMoviesChecked={
+                      setIsCheckboxFavoritesMoviesChecked
                     }
                     setCurrentUser={setCurrentUser}
                     onUpdate={updateUserInfo}
@@ -599,10 +599,10 @@ export default function App() {
             />
           </Route>
 
-          {!isCurrentUserLoggedIn && (
+          {!IsUserLoggedIn && (
             <>
               <Route
-                path={ENDPOINT_SIGNUP}
+                path={INITIALROUTE_SIGNUP}
                 element={
                   <Register
                     onRegistration={handleUserRegistration}
@@ -612,7 +612,7 @@ export default function App() {
                 }
               />
               <Route
-                path={ENDPOINT_SIGNIN}
+                path={INITIALROUTE_SIGNIN}
                 element={
                   <Login
                     onAuthorization={handleUserAuthorization}
@@ -625,9 +625,9 @@ export default function App() {
           )}
 
           <Route
-            path={ENDPOINT_ASTERISK}
+            path={INITIALROUTE_NOTHING}
             element={
-              <PageNotFound isCurrentUserLoggedIn={isCurrentUserLoggedIn} />
+              <PageNotFound IsUserLoggedIn={IsUserLoggedIn} />
             }
           />
         </Routes>

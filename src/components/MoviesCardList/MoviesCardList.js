@@ -6,15 +6,15 @@ import Preloader from "../Preloader/Preloader";
 import useWindowDimensions from "../../hooks/useWindowSize";
 
 import {
-  ENDPOINT_MOVIES,
+  INITIALROUTE_MOVIES,
   LAPTOP_SCREEN_WIDTH,
   MOBILE_SCREEN_WIDTH,
-  NUM_CARDS_DESKTOP_INIT,
-  NUM_CARDS_TABLET_INIT,
-  NUM_CARDS_MOBILE_INIT,
-  NUM_CARDS_DESKTOP_ADD,
-  NUM_CARDS_TABLET_ADD,
-  NUM_CARDS_MOBILE_ADD,
+  COUNT_PIC_DESKTOP_INIT,
+  COUNT_PIC_TABLET_INIT,
+  COUNT_PIC_MOBILE_INIT,
+  COUNT_PIC_DESKTOP_ADD,
+  COUNT_PIC_TABLET_ADD,
+  COUNT_PIC_MOBILE_ADD,
 } from "../../utils/constants";
 
 function MoviesCardList({
@@ -26,7 +26,7 @@ function MoviesCardList({
   error,
 }) {
   const location = useLocation();
-  const pathMovies = location.pathname === ENDPOINT_MOVIES;
+  const pathMovies = location.pathname === INITIALROUTE_MOVIES;
   const windowWidth = useWindowDimensions();
   const isDesktop = windowWidth > LAPTOP_SCREEN_WIDTH;
   const isTablet =
@@ -38,18 +38,18 @@ function MoviesCardList({
   useEffect(() => {
     if (
       [
-        NUM_CARDS_DESKTOP_INIT,
-        NUM_CARDS_TABLET_INIT,
-        NUM_CARDS_MOBILE_INIT,
+        COUNT_PIC_DESKTOP_INIT,
+        COUNT_PIC_TABLET_INIT,
+        COUNT_PIC_MOBILE_INIT,
         0,
       ].includes(visibleCards)
     ) {
       setVisibleCards(
         isDesktop
-        ? NUM_CARDS_DESKTOP_INIT
+        ? COUNT_PIC_DESKTOP_INIT
         : isTablet
-        ? NUM_CARDS_TABLET_INIT
-        : NUM_CARDS_MOBILE_INIT
+        ? COUNT_PIC_TABLET_INIT
+        : COUNT_PIC_MOBILE_INIT
       );
     }
 
@@ -57,9 +57,9 @@ function MoviesCardList({
       isDesktop &&
       visibleCards % 3 !== 0 &&
       ![
-        NUM_CARDS_DESKTOP_INIT,
-        NUM_CARDS_TABLET_INIT,
-        NUM_CARDS_MOBILE_INIT,
+        COUNT_PIC_DESKTOP_INIT,
+        COUNT_PIC_TABLET_INIT,
+        COUNT_PIC_MOBILE_INIT,
         0,
       ].includes(visibleCards)
     ) {
@@ -98,10 +98,10 @@ function MoviesCardList({
       (prevVal) =>
         prevVal +
         (isDesktop
-          ? NUM_CARDS_DESKTOP_ADD
+          ? COUNT_PIC_DESKTOP_ADD
           : isTablet
-          ? NUM_CARDS_TABLET_ADD
-          : NUM_CARDS_MOBILE_ADD)
+          ? COUNT_PIC_TABLET_ADD
+          : COUNT_PIC_MOBILE_ADD)
     );
   }
 
@@ -125,7 +125,7 @@ function MoviesCardList({
   return (
     <section
       className="movies-gallery"
-      aria-label="Галерея фильмов"
+      aria-label="Фильмы"
     >
       <div className="wrapper movies-gallery__wrapper">
       {renderResults()}
@@ -134,7 +134,7 @@ function MoviesCardList({
           <button
             className="btn movies-gallery__btn-more"
             type="button"
-            aria-label="Отображение новых карточек с фильмами в галерее"
+            aria-label="Отображение новых карточек"
             onClick={() => setMoreCards()}
           >
             Ещё

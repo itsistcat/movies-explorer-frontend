@@ -8,15 +8,15 @@ import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 import {
   PATTERN_EMAIL,
-  ENDPOINT_ROOT,
+  INITIALROUTE_ROOT,
   PATTERN_USERNAME,
 } from "../../utils/constants";
 import { VALIDATION_MESSAGES } from "../../utils/validation";
 
 function Profile({
-  setIsCurrentUserLoggedIn,
-  setSearchFormValueSavedMovies,
-  setIsFilterCheckboxSavedMoviesChecked,
+  setIsUserLoggedIn,
+  setSearchValueFavoritesMovies,
+  setIsCheckboxFavoritesMoviesChecked,
   setCurrentUser,
   onUpdate,
   onLoad,
@@ -82,10 +82,10 @@ function Profile({
       email: "",
       name: "",
     });
-    setSearchFormValueSavedMovies("");
-    setIsFilterCheckboxSavedMoviesChecked(false);
-    navigate(ENDPOINT_ROOT, { replace: true });
-    setIsCurrentUserLoggedIn(false);
+    setSearchValueFavoritesMovies("");
+    setIsCheckboxFavoritesMoviesChecked(false);
+    navigate(INITIALROUTE_ROOT, { replace: true });
+    setIsUserLoggedIn(false);
   }
 
   return (
@@ -180,7 +180,7 @@ function Profile({
               <button
                 className="btn btn-profile"
                 type="button"
-                aria-label="Редактирование данных профиля"
+                aria-label="Редактирование данных"
                 onClick={(evt) => showSaveBtn(evt)}
               >
                 Редактировать
@@ -193,7 +193,7 @@ function Profile({
           <button
             className="btn btn-profile-exit"
             type="button"
-            aria-label="Выход из личного кабинета пользователя"
+            aria-label="Выход пользователя"
             onClick={() => loginOut()}
           >
             Выйти из аккаунта
@@ -205,9 +205,9 @@ function Profile({
 }
 
 Profile.propTypes = {
-  setIsCurrentUserLoggedIn: PropTypes.func,
-  setSearchFormValueSavedMovies: PropTypes.func,
-  setIsFilterCheckboxSavedMoviesChecked: PropTypes.func,
+  setIsUserLoggedIn: PropTypes.func,
+  setSearchValueFavoritesMovies: PropTypes.func,
+  setIsCheckboxFavoritesMoviesChecked: PropTypes.func,
   setCurrentUser: PropTypes.func,
   onUpdate: PropTypes.func,
   onLoad: PropTypes.bool,

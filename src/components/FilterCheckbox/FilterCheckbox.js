@@ -1,12 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { ENDPOINT_MOVIES, ENDPOINT_SAVED_MOVIES } from "../../utils/constants";
+import { INITIALROUTE_MOVIES, INITIALROUTE_SAVED_MOVIES } from "../../utils/constants";
 
 function FilterCheckbox({ onFilter, isFilterCheckboxChecked }) {
   const location = useLocation();
-  const pathMovies = location.pathname === ENDPOINT_MOVIES;
-  const pathSavedMovies = location.pathname === ENDPOINT_SAVED_MOVIES;
+  const pathMovies = location.pathname === INITIALROUTE_MOVIES;
+  const pathSavedMovies = location.pathname === INITIALROUTE_SAVED_MOVIES;
 
   function toggleFilterCheckbox({ type, target, key }) {
     let checked;

@@ -6,19 +6,19 @@ import Navigation from "../Navigation/Navigation.js";
 function HamburgerMenu({
   setIsModalWindowOpened,
   isModalWindowOpened,
-  isHamburgerMenuOpened,
-  setIsHamburgerMenuOpened,
+  isHamburgerOpened,
+  setIsHamburgerOpened,
 }) {
   return (
     <ModalWindow
     setIsModalWindowOpened={setIsModalWindowOpened}
     isModalWindowOpened={isModalWindowOpened}
-    setIsHamburgerMenuOpened={setIsHamburgerMenuOpened}
-    isHamburgerMenuOpened={isHamburgerMenuOpened}
+    setIsHamburgerOpened={setIsHamburgerOpened}
+    isHamburgerOpened={isHamburgerOpened}
     >
       <div
         className={`hamburger-menu${
-          (isHamburgerMenuOpened && " hamburger-menu_opened") || ""
+          (isHamburgerOpened && " hamburger-menu_opened") || ""
         }`}
       >
         <div className="hamburger-menu__wrapper">
@@ -32,8 +32,8 @@ function HamburgerMenu({
 HamburgerMenu.propTypes = {
   setIsModalWindowOpened: PropTypes.func,
   isModalWindowOpened: PropTypes.bool,
-  isHamburgerMenuOpened: PropTypes.bool,
-  setIsHamburgerMenuOpened: PropTypes.func,
+  isHamburgerOpened: PropTypes.bool,
+  setIsHamburgerOpened: PropTypes.func,
 };
 
 export default HamburgerMenu;

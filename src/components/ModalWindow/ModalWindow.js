@@ -5,8 +5,8 @@ function ModalWindow({
   children,
   setIsModalWindowOpened,
   isModalWindowOpened,
-  isHamburgerMenuOpened,
-  setIsHamburgerMenuOpened,
+  isHamburgerOpened,
+  setIsHamburgerOpened,
 }) {
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function ModalWindow({
   }, []);
 
   const closeHamburgerMenu = useCallback(() => {
-    setIsHamburgerMenuOpened(false);
+    setIsHamburgerOpened(false);
   }, []);
 
   function closeHamburgerMenuOnOutsideAndNavClick({ target }) {
@@ -37,7 +37,7 @@ function ModalWindow({
     <div
     className={`modal-window${
       (isModalWindowOpened && " modal-window_opened") || ""
-    }${(isHamburgerMenuOpened && " modal-window_bg-color_dark") || ""}`}
+    }${(isHamburgerOpened && " modal-window_bg-color_dark") || ""}`}
     onClick={closeHamburgerMenuOnOutsideAndNavClick}
     onTransitionEnd={({ propertyName, target }) => {
       if (
@@ -57,8 +57,8 @@ ModalWindow.propTypes = {
   children: PropTypes.element,
   setIsModalWindowOpened: PropTypes.func,
   isModalWindowOpened: PropTypes.bool,
-  isHamburgerMenuOpened: PropTypes.bool,
-  setIsHamburgerMenuOpened: PropTypes.func,
+  isHamburgerOpened: PropTypes.bool,
+  setIsHamburgerOpened: PropTypes.func,
 };
 
 export default ModalWindow;

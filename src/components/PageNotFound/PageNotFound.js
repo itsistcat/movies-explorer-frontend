@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { ENDPOINT_ROOT, ENDPOINT_MOVIES } from "../../utils/constants";
+import { INITIALROUTE_ROOT, INITIALROUTE_MOVIES } from "../../utils/constants";
 
-function PageNotFound({ isCurrentUserLoggedIn }) {
+function PageNotFound({ IsUserLoggedIn }) {
   return (
     <div className="not-found">
       <div className="not-found__wrapper">
@@ -14,7 +14,7 @@ function PageNotFound({ isCurrentUserLoggedIn }) {
         </div>
         <Link
           className="link not-found__link"
-          to={isCurrentUserLoggedIn ? ENDPOINT_MOVIES : ENDPOINT_ROOT}
+          to={IsUserLoggedIn ? INITIALROUTE_MOVIES : INITIALROUTE_ROOT}
         >
           Назад
         </Link>
@@ -24,7 +24,7 @@ function PageNotFound({ isCurrentUserLoggedIn }) {
 }
 
 PageNotFound.propTypes = {
-  isCurrentUserLoggedIn: PropTypes.bool,
+  IsUserLoggedIn: PropTypes.bool,
 };
 
 export default PageNotFound;
