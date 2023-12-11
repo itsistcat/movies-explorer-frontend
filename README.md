@@ -22,7 +22,6 @@ Backend https://api.films.nomoredomainsmonster.ru
 
 Frontend: https://films.nomoredomainsmonster.ru
 
-
 ### Шаблон (light-5)🎨: https://drive.google.com/drive/folders/1w0SzhaA2aiD_xnwAy-WrNGBBGPQJHxdR?usp=sharing
 
 ### Адрес репозитория💻: https://github.com/itsistcat/movies-explorer-frontend
