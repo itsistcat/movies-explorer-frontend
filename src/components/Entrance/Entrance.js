@@ -14,31 +14,32 @@ function Entrance({
   onLoad,
   error,
   isValid,
- }) {
+}) {
   const href = useMatch({ path: `${window.location.pathname}`, end: false });
   const isLoginHref = href.pathname.endsWith("/signin");
   console.log(isLoginHref);
-  const inputs = children.slice(0, -1);
-  const link = children.slice(-1);
+
+  const renderInputs = () => children.slice(0, -1);
+  const renderLink = () => children.slice(-1);
 
   return (
     <div className="entrance">
       <div className="entrance__wrapper">
         <Logo />
         <h1 className="entrance__heading">{heading}</h1>
-        <form className="entrance__form" name={name} onSubmit={onSubmit} noValidate>
-          <fieldset
-            className={`entrance__fieldset${
-              (isLoginHref && " entrance__fieldset_margin_big") || ""
-            }`}
-          >
-            {inputs}
-          </fieldset>
+        <form
+          className={`entrance__form${
+            isLoginHref ? " entrance__form_margin_big" : ""
+          }`}
+          name={name}
+          onSubmit={onSubmit}
+          noValidate
+        >
+          <fieldset className="entrance__fieldset">{renderInputs()}</fieldset>
           <div className="entrance__wrapper-btn">
             <span
               className={`error${
-                ((error?.registrationRes ||
-                  error?.authorizationRes) &&
+                ((error?.registrationRes || error?.authorizationRes) &&
                   " error_visible") ||
                 ""
               } error_type_server-response`}
@@ -46,32 +47,32 @@ function Entrance({
               {error?.registrationRes || error?.authorizationRes}
             </span>
 
-          <button
-            className="btn btn-entrance"
-            type="submit"
-            aria-label={btnAriaLabel}
-            disabled={!isValid || onLoad}
-          >
-            {onLoad ? "Подождите..." : btn}
-          </button>
+            <button
+              className="btn btn-entrance"
+              type="submit"
+              aria-label={btnAriaLabel}
+              disabled={!isValid || onLoad}
+            >
+              {onLoad ? "Подождите..." : btn}
+            </button>
           </div>
         </form>
-        {link}
+        {renderLink()}
       </div>
     </div>
   );
 }
 
 Entrance.propTypes = {
+  btn: PropTypes.string.isRequired,
+  isValid: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  error: PropTypes.object,
+  btnAriaLabel: PropTypes.string.isRequired,
   children: PropTypes.array.isRequired,
   heading: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  btn: PropTypes.string.isRequired,
-  btnAriaLabel: PropTypes.string.isRequired,
   onSubmit: PropTypes.func,
   onLoad: PropTypes.bool,
-  isValid: PropTypes.bool,
-  error: PropTypes.object,
 };
 
 export default Entrance;

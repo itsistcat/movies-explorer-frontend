@@ -14,7 +14,7 @@ function PortfolioProject({ url, heading }) {
 }
 
 PortfolioProject.propTypes = {
-  url: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 export default PortfolioProject;

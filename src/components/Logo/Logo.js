@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
-import { INITIALROUTE_ROOT } from "../../utils/constants";
+import { ROOT } from "../../utils/constants";
 
 export default function Logo() {
   return (
-    <Link to={INITIALROUTE_ROOT}>
+    <Link to={ROOT}>
       <img
         className="logo"
         src={logo}

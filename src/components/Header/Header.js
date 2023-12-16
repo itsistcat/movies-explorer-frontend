@@ -3,133 +3,121 @@ import { Outlet, Link, useMatch } from "react-router-dom";
 import PropTypes from "prop-types";
 import useWindowSize from "../../hooks/useWindowSize.js";
 import Logo from "../Logo/Logo.js";
-import Navigation from "../Navigation/Navigation.js";
-import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.js";
+import NavLinks from "../NavLinks/NavLinks.js";
+import BurgerMenu from "../BurgerMenu/BurgerMenu.js";
 import {
-  INITIALROUTE_SIGNUP,
-  INITIALROUTE_SIGNIN,
-  TABLET_SCREEN_WIDTH,
+  SIGNUP,
+  SIGNIN,
+  MEDIUM_SCREEN,
 } from "../../utils/constants.js";
-
 
 function Header({ IsUserLoggedIn }) {
   const [isModalWindowOpened, setIsModalWindowOpened] = useState(false);
-  const [isHamburgerOpened, setIsHamburgerOpened] = useState(false);
+  const [isBurgerOpened, setIsBurgerOpened] = useState(false);
+  const openModalWindow = () => setIsModalWindowOpened(true);
 
-  function openModalWindow() {
-    setIsModalWindowOpened(true);
-  }
-
-  function toggleHamburgerMenu() {
+  const toggleBurgerMenu = () => {
     if (!isModalWindowOpened) {
       openModalWindow();
     }
-
-    setIsHamburgerOpened(!isHamburgerOpened);
-  }
+    setIsBurgerOpened(!isBurgerOpened);
+  };
 
   const href = useMatch({ path: `${window.location.pathname}`, end: false });
   const isRootHref = href.pathnameBase === "/";
+  const isMobileWidth = useWindowSize() <= MEDIUM_SCREEN;
 
-  const isMobileWidth = useWindowSize() <= TABLET_SCREEN_WIDTH;
-
-  function renderHeaderMenu() {
-if (isRootHref && IsUserLoggedIn){
-  if (isMobileWidth) {
-    return (
-      <div className="wrapper header__wrapper header__wrapper_color">
-
-        <Logo />
-
-        <button
-          className={`btn hamburger ${(isHamburgerOpened && " hamburger_clicked") || ""
-            }`}
-          type="button"
-          aria-label="Навигация"
-          onClick={() => toggleHamburgerMenu()}
-        >
-          <span className="hamburger__line"></span>
-          <span className="hamburger__line"></span>
-          <span className="hamburger__line"></span>
-        </button>
-
-      </div>
-    )
-  }
-  return (
-    <div className="wrapper header__wrapper header__wrapper_color">
-      <Logo />
-      <Navigation />
-    </div>
-  )
-}
-
+  const renderHeaderMenu = () => {
+    // Если пользователь вошел и перешёл на главную страницу, показать логотип и навигацию/гамбургер
+    if (isRootHref && IsUserLoggedIn) {
+      return (
+        <div className="wrapper header__wrapper header__wrapper_color">
+          <Logo />
+          {isMobileWidth ? (
+            <button
+              className={`btn  burger${
+                isBurgerOpened ? " burger_clicked" : ""
+              }`}
+              type="button"
+              aria-label="Навигация"
+              onClick={toggleBurgerMenu}
+            >
+              <span className="burger__line"></span>
+              <span className="burger__line"></span>
+              <span className="burger__line"></span>
+            </button>
+          ) : (
+            <NavLinks />
+          )}
+        </div>
+      );
+    }
+    // Если ширина мобильная и пользователь вошел, показать логотип/гамбургер
     if (isMobileWidth && IsUserLoggedIn) {
       return (
         <div className="wrapper header__wrapper">
-
           <Logo />
-
           <button
-            className={`btn hamburger ${(isHamburgerOpened && " hamburger_clicked") || ""
-              }`}
+            className={`btn  burger${
+              isBurgerOpened ? " burger_clicked" : ""
+            }`}
             type="button"
             aria-label="Навигация"
-            onClick={() => toggleHamburgerMenu()}
+            onClick={toggleBurgerMenu}
           >
-            <span className="hamburger__line"></span>
-            <span className="hamburger__line"></span>
-            <span className="hamburger__line"></span>
+            <span className="burger__line"></span>
+            <span className="burger__line"></span>
+            <span className="burger__line"></span>
           </button>
-
         </div>
-      )
+      );
     }
-
+ // Если пользователь не вошел, показать логотип и ссылки на регистрацию и вход
     if (!IsUserLoggedIn) {
       return (
         <div className="wrapper header__wrapper  header__wrapper_color">
           <Logo />
           <div className="header__auth">
-            <Link className="link" to={INITIALROUTE_SIGNUP}>
+            <Link className="link" to={SIGNUP}>
               Регистрация
             </Link>
-            <Link className="link link_color btn-auth" to={INITIALROUTE_SIGNIN}>
+            <Link
+              className="link link_color btn-auth"
+              to={SIGNIN}
+            >
               Войти
             </Link>
           </div>
         </div>
-      )
+      );
     }
+
     return (
       <div className="wrapper header__wrapper">
         <Logo />
-        <Navigation />
+        <NavLinks />
       </div>
-    )
+    );
+  };
 
-  }
   return (
     <>
-      <header className="header">
-
-        {renderHeaderMenu()}
-
-
-      </header>
+      <header className="header">{renderHeaderMenu()}</header>
       <Outlet />
       {isMobileWidth && (
-        <HamburgerMenu
-        isModalWindowOpened={isModalWindowOpened}
-        setIsModalWindowOpened={setIsModalWindowOpened}
-        isHamburgerOpened={isHamburgerOpened}
-        setIsHamburgerOpened={setIsHamburgerOpened}
+        <BurgerMenu
+          isModalWindowOpened={isModalWindowOpened}
+          setIsModalWindowOpened={setIsModalWindowOpened}
+          isBurgerOpened={isBurgerOpened}
+          setIsBurgerOpened={setIsBurgerOpened}
         />
       )}
     </>
   );
 }
+
 Header.propTypes = {
   IsUserLoggedIn: PropTypes.bool,
 };
+
 export default Header;

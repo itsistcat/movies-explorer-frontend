@@ -1,10 +1,17 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { ROOT } from "../../utils/constants";
 import PropTypes from "prop-types";
-import { INITIALROUTE_ROOT } from "../../utils/constants";
 
-const ProtectedRoute = ({ isUserLoggedIn, children }) =>
-  isUserLoggedIn ? children : <Navigate to={INITIALROUTE_ROOT} replace />;
+
+// Компонент защищенного маршрута
+const ProtectedRoute = ({ isUserLoggedIn, children }) => {
+  if (isUserLoggedIn) {
+    return children;
+  } else {
+    return <Navigate to={ROOT} replace />;
+  }
+};
 
 ProtectedRoute.propTypes = {
   isUserLoggedIn: PropTypes.bool,

@@ -1,39 +1,30 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import { INITIALROUTE_MOVIES, INITIALROUTE_SAVED_MOVIES } from "../../utils/constants";
+import { MOVIES, SAVED_MOVIES } from "../../utils/constants";
 
 function FilterCheckbox({ onFilter, isFilterCheckboxChecked }) {
   const location = useLocation();
-  const pathMovies = location.pathname === INITIALROUTE_MOVIES;
-  const pathSavedMovies = location.pathname === INITIALROUTE_SAVED_MOVIES;
+  const pathMovies = location.pathname === MOVIES;
+  const pathSavedMovies = location.pathname === SAVED_MOVIES;
 
-  function toggleFilterCheckbox({ type, target, key }) {
-    let checked;
-
-    if (type === "change") {
-      checked = target.checked;
+  // Обработчик изменения состояния чекбокса
+  function handleToggleFilterCheckbox(event) {
+    if (pathMovies || pathSavedMovies) {
+      if (event.type === "change" || (event.type === "keydown" && event.key === "Enter")) {
+        const checked = event.target.checked;
+        onFilter(checked);
+      }
     }
-
-    if (type === "keydown" && key === "Enter") {
-      const checkbox = target.children[0];
-
-      checked = target.children[0].checked
-        ? (checkbox.checked = false)
-        : (checkbox.checked = true);
-    }
-
-    if (pathMovies && checked !== undefined) onFilter(checked);
-
-    if (pathSavedMovies && checked !== undefined) onFilter(checked);
   }
+
   return (
     <div className="filter-checkbox">
       <div
         className="filter-checkbox__wrapper"
         tabIndex="0"
-        onChange={(evt) => toggleFilterCheckbox(evt)}
-        onKeyDown={(evt) => toggleFilterCheckbox(evt)}
+        onChange={handleToggleFilterCheckbox}
+        onKeyDown={handleToggleFilterCheckbox}
       >
         <input
           className="filter-checkbox__input"
@@ -41,14 +32,16 @@ function FilterCheckbox({ onFilter, isFilterCheckboxChecked }) {
           type="checkbox"
           defaultChecked={isFilterCheckboxChecked}
         />
-      <label className="filter-checkbox__label" htmlFor="filter-films" />
+        <label className="filter-checkbox__label" htmlFor="filter-films" />
       </div>
       <span className="filter-checkbox__span">Короткометражки</span>
     </div>
   );
 }
+
 FilterCheckbox.propTypes = {
   isFilterCheckboxChecked: PropTypes.bool,
   onFilter: PropTypes.func,
 };
+
 export default FilterCheckbox;

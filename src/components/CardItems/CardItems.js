@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function MoviesCard({ movie, icon, onMovieSelect }) {
+function CardItems({ movie, icon, onMovieSelect }) {
   const { nameRU, duration, trailerLink, image, selected } = movie;
 
-  function countTime(duration) {
+  const countTime = (duration) => {
     const time = duration / 60;
     const hours = Math.floor(time);
     const minutes = duration - hours * 60;
@@ -12,34 +12,39 @@ function MoviesCard({ movie, icon, onMovieSelect }) {
     if (hours && minutes) return `${hours}ч ${minutes}м`;
 
     return hours ? `${hours}ч` : `${minutes}м`;
-  }
+  };
+
+  const handleMovieSelect = (evt) => {
+    onMovieSelect(evt, movie);
+  };
 
   return (
-    <article className="movies-card">
-      <div className="movies-card__description">
-        <h2 className="movies-card__heading">{nameRU}</h2>
-        <span className="movies-card__duration">{countTime(duration)}</span>
+    <article className="card-items">
+      <div className="card-items__description">
+        <h2 className="card-items__heading">{nameRU}</h2>
+        <span className="card-items__duration">{countTime(duration)}</span>
       </div>
       <button
-        className={`btn movies-card__btn-favourite${
-          (selected && " btn movies-card__btn-favourite_active") || ""
+        className={`btn card-items__btn-favourite${
+          selected ? " btn card-items__btn-favourite_active" : ""
         }`}
         type="button"
         aria-label="Добавление в избранное"
-        onClick={(evt) => onMovieSelect(evt, movie)}
+        onClick={handleMovieSelect}
       >
         {icon}
       </button>
       <a
-        className="link movies-card__link"
+        className="link card-items__link"
         href={trailerLink}
         rel="noreferrer"
         target="_blank"
       >
         <img
-          className="movies-card__photo"
+          className="card-items__photo"
           src={
-            (image?.url && `https://api.nomoreparties.co${image?.url}`) || image
+            (image?.url && `https://api.nomoreparties.co${image?.url}`) ||
+            image
           }
           alt={`Постер фильма "${nameRU}"`}
         />
@@ -48,10 +53,10 @@ function MoviesCard({ movie, icon, onMovieSelect }) {
   );
 }
 
-MoviesCard.propTypes = {
+CardItems.propTypes = {
   movie: PropTypes.object,
-  icon: PropTypes.element,
   onMovieSelect: PropTypes.func,
+  icon: PropTypes.element,
 };
 
-export default MoviesCard;
+export default CardItems;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import AboutProjectSubject from "../AboutProjectSubject/AboutProjectSubject";
-import ProgressBar from "../ProgressBar/ProgressBar";
+import NumWeeks from "../NumWeeks/NumWeeks";
 
 export default function AboutProject() {
   return (
@@ -18,7 +18,7 @@ export default function AboutProject() {
             paragraph={"У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься."}
           />
         </div>
-        <ProgressBar />
+        <NumWeeks />
         <div className="about-project__web-development">
           <span className="text-additional-1">Back-end</span>
           <span className="text-additional-1">Front-end</span>

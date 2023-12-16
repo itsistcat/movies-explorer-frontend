@@ -7,12 +7,12 @@ export default function useFormWithValidation() {
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-
+// Обновление значений полей
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
   };
-
+// Функция сброса формы к начальному состоянию
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);

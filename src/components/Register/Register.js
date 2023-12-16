@@ -90,8 +90,8 @@ function Register({ onRegistration, onLoad, error }) {
 
 Register.propTypes = {
   onRegistration: PropTypes.func,
-  onLoad: PropTypes.bool,
   error: PropTypes.object,
+  onLoad: PropTypes.bool,
 };
 
 export default Register;
