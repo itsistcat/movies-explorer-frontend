@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
 import SearchForm from "../SearchForm/SearchForm.js";
-import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
+import CardList from "../CardList/CardList.js";
 import Footer from "../Footer/Footer.js";
 
 function SavedMovies({
@@ -46,7 +45,7 @@ function SavedMovies({
           prevValue={prevValueSavedMovies}
           setPrevValue={setPrevValueSavedMovies}
         />
-        <MoviesCardList
+        <CardList
           movies={movies}
           hasUserSearched={hasUserSearched}
           icon={icon}
@@ -61,12 +60,12 @@ function SavedMovies({
 SavedMovies.propTypes = {
   movies: PropTypes.array,
   onMovieSelect: PropTypes.func,
+  setIsSearchRequestInProgress: PropTypes.func,
+  isFilterCheckboxChecked: PropTypes.bool,
+  searchFormValue: PropTypes.string,
   onSearch: PropTypes.func,
   hasUserSearched: PropTypes.bool,
-  searchFormValue: PropTypes.string,
-  setIsSearchRequestInProgress: PropTypes.func,
   onFilter: PropTypes.func,
-  isFilterCheckboxChecked: PropTypes.bool,
 };
 
 export default SavedMovies;

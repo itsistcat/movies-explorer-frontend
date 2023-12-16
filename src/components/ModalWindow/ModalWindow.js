@@ -1,64 +1,68 @@
 import React, { useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
-function ModalWindow({
+const ModalWindow = ({
   children,
   setIsModalWindowOpened,
+  setIsBurgerOpened,
   isModalWindowOpened,
-  isHamburgerOpened,
-  setIsHamburgerOpened,
-}) {
-
+  isBurgerOpened,
+}) => {
   useEffect(() => {
     const body = document.body;
 
-    isModalWindowOpened
-      ? body.classList.add("page_no-scroll")
-      : body.classList.remove("page_no-scroll");
+    if (isModalWindowOpened) {
+      body.classList.add("page_no-scroll");
+    } else {
+      body.classList.remove("page_no-scroll");
+    }
   }, [isModalWindowOpened]);
+
+  const closeBurgerMenu = useCallback(() => {
+    setIsBurgerOpened(false);
+  }, [setIsBurgerOpened]);
 
   const closeModalWindow = useCallback(() => {
     setIsModalWindowOpened(false);
-  }, []);
+  }, [setIsModalWindowOpened]);
 
-  const closeHamburgerMenu = useCallback(() => {
-    setIsHamburgerOpened(false);
-  }, []);
-
-  function closeHamburgerMenuOnOutsideAndNavClick({ target }) {
-    const checkSelector = (selector) => target.classList.contains(selector);
-
-    if (checkSelector("modal-window_opened") || checkSelector("link")) {
-      closeHamburgerMenu();
+  const handleTransitionEnd = ({ propertyName, target }) => {
+    if (
+      propertyName === "transform" &&
+      !target.classList.contains("burger-menu_opened")
+    ) {
+      closeModalWindow();
     }
-  }
+  };
+
+  const closeBurgerMenuOnOutsideAndNavClick = ({ target }) => {
+    const checkSelector = (selector) => target.classList.contains(selector);
+    if (checkSelector("modal-window_opened") || checkSelector("link")) {
+      closeBurgerMenu();
+    }
+  };
+
+  const modalClasses = `modal-window${
+    isModalWindowOpened ? " modal-window_opened" : ""
+  }${isBurgerOpened ? " modal-window_bg-color_dark" : ""}`;
 
   return (
     <div
-    className={`modal-window${
-      (isModalWindowOpened && " modal-window_opened") || ""
-    }${(isHamburgerOpened && " modal-window_bg-color_dark") || ""}`}
-    onClick={closeHamburgerMenuOnOutsideAndNavClick}
-    onTransitionEnd={({ propertyName, target }) => {
-      if (
-        propertyName === "transform" &&
-        !target.classList.contains("hamburger-menu_opened")
-      ) {
-        closeModalWindow();
-      }
-    }}
+      className={modalClasses}
+      onClick={closeBurgerMenuOnOutsideAndNavClick}
+      onTransitionEnd={handleTransitionEnd}
     >
       {children}
     </div>
   );
-}
+};
 
 ModalWindow.propTypes = {
-  children: PropTypes.element,
   setIsModalWindowOpened: PropTypes.func,
+  isBurgerOpened: PropTypes.bool,
+  children: PropTypes.element,
+  setIsBurgerOpened: PropTypes.func,
   isModalWindowOpened: PropTypes.bool,
-  isHamburgerOpened: PropTypes.bool,
-  setIsHamburgerOpened: PropTypes.func,
 };
 
 export default ModalWindow;

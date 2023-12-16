@@ -11,9 +11,9 @@ function Input({
   maxLength,
   autoComplete,
   onChange,
+  errorMessage,
   pattern,
   errorCondition,
-  errorMessage,
  }) {
   return (
     <div className="wrapper-input">
@@ -40,18 +40,18 @@ function Input({
 }
 
 Input.propTypes = {
-  label: PropTypes.string,
-  htmlFor: PropTypes.string,
   id: PropTypes.string.isRequired,
-  type: PropTypes.string,
   name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  pattern: PropTypes.string,
+  htmlFor: PropTypes.string,
+  type: PropTypes.string,
+  errorCondition: PropTypes.string,
+  errorMessage: PropTypes.string,
   minLength: PropTypes.string,
   maxLength: PropTypes.string,
   autoComplete: PropTypes.string,
-  onChange: PropTypes.func,
-  pattern: PropTypes.string,
-  errorCondition: PropTypes.string,
-  errorMessage: PropTypes.string,
 };
 
 export default Input;

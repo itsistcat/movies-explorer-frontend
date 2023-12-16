@@ -4,28 +4,26 @@ import avatar from "../../assets/images/img-me.jpg";
 
 function AboutMe() {
   function calculateAge() {
-    const today = new Date();
     const birthDate = new Date(2000, 3, 12);
-    const month = today.getMonth() - birthDate.getMonth();
-    let age = today.getFullYear() - birthDate.getFullYear();
+    const today = new Date();
+    const ageInMilliseconds = today - birthDate;
 
-    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
+    const millisecondsInYear = 3.154e10;
+    const age = Math.floor(ageInMilliseconds / millisecondsInYear);
 
-    let years = String(age);
-    if (years >= 11 && years <= 14) {
+    const lastDigit = age % 10;
+    let years;
+
+    if (lastDigit >= 5 || (lastDigit === 0 && age !== 0 && age !== 20)) {
       years = "лет";
-    } else if (years.endsWith("1")) {
+    } else if (lastDigit === 1) {
       years = "год";
-    } else if (years.endsWith("2") || years.endsWith("3") || years.endsWith("4")) {
-      years = "года";
     } else {
-      years = "лет";
+      years = "года";
     }
-
     return `${age} ${years}`;
   }
+
 
   return (
     <section className="about-me">

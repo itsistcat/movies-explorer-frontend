@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-
-import { INITIALROUTE_ROOT, INITIALROUTE_MOVIES } from "../../utils/constants";
+import { Link } from "react-router-dom";
+import { ROOT, MOVIES } from "../../utils/constants";
 
 function PageNotFound({ IsUserLoggedIn }) {
   return (
@@ -14,7 +13,7 @@ function PageNotFound({ IsUserLoggedIn }) {
         </div>
         <Link
           className="link not-found__link"
-          to={IsUserLoggedIn ? INITIALROUTE_MOVIES : INITIALROUTE_ROOT}
+          to={IsUserLoggedIn ? MOVIES : ROOT}
         >
           Назад
         </Link>

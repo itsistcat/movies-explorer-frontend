@@ -1,14 +1,14 @@
 import {
   URL_BASE,
-  INITIALROUTE_SIGNUP,
-  INITIALROUTE_SIGNIN,
-  INITIALROUTE_USERS_CURRENT,
-  INITIALROUTE_MOVIES,
+  SIGNUP,
+  SIGNIN,
+  USERS_CURRENT,
+  MOVIES,
 } from "./constants";
 
-// User
+// Функция регистрации нового пользователя
 export function registerUser(email, password, name) {
-  return fetch(`${URL_BASE}${INITIALROUTE_SIGNUP}`, {
+  return fetch(`${URL_BASE}${SIGNUP}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -17,8 +17,9 @@ export function registerUser(email, password, name) {
   });
 }
 
+// Функция авторизации пользователя
 export function authorizeUser(email, password) {
-  return fetch(`${URL_BASE}${INITIALROUTE_SIGNIN}`, {
+  return fetch(`${URL_BASE}${SIGNIN}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,8 +28,9 @@ export function authorizeUser(email, password) {
   });
 }
 
+// Функция получения информации о текущем пользователе
 export function getUserInfo(token) {
-  return fetch(`${URL_BASE}${INITIALROUTE_USERS_CURRENT}`, {
+  return fetch(`${URL_BASE}${USERS_CURRENT}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -38,8 +40,9 @@ export function getUserInfo(token) {
     .then((data) => data);
 }
 
+// Функция обновления информации о пользователе
 export function setUserInfo(email, name) {
-  return fetch(`${URL_BASE}${INITIALROUTE_USERS_CURRENT}`, {
+  return fetch(`${URL_BASE}${USERS_CURRENT}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -49,9 +52,9 @@ export function setUserInfo(email, name) {
   });
 }
 
-// Movies
+// Функция получения сохранённых фильмов пользователя
 export function getSavedMovies() {
-  return fetch(`${URL_BASE}${INITIALROUTE_MOVIES}`, {
+  return fetch(`${URL_BASE}${MOVIES}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -65,10 +68,12 @@ export function getSavedMovies() {
   });
 }
 
+// Функция обработки сохранения/удаления фильма на сервере
 export function handleMovieServer(movie) {
   const selected = movie?.selected;
 
   if (selected) {
+    // Сохранение нового фильма
     const {
       id: movieId,
       country,
@@ -85,7 +90,7 @@ export function handleMovieServer(movie) {
     let thumbnail = `https://api.nomoreparties.co${image.formats.thumbnail.url}`;
     image = `https://api.nomoreparties.co${image.url}`;
 
-    return fetch(`${URL_BASE}${INITIALROUTE_MOVIES}`, {
+    return fetch(`${URL_BASE}${MOVIES}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,8 +111,9 @@ export function handleMovieServer(movie) {
       }),
     });
   } else {
+    // Удаление сохранённого фильма
     return fetch(
-      `${URL_BASE}${INITIALROUTE_MOVIES}/${movie.dbId || movie._id}`,
+      `${URL_BASE}${MOVIES}/${movie.dbId || movie._id}`,
       {
         method: "DELETE",
                 headers: {

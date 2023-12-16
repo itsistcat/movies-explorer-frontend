@@ -17,6 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "npm run build && scp -r ./build/* itsistcat@158.160.100.82:/home/itsistcat/frontend",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

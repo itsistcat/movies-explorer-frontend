@@ -73,8 +73,8 @@ function Login({ onAuthorization, onLoad, error }) {
 
 Login.propTypes = {
   onAuthorization: PropTypes.func,
-  onLoad: PropTypes.bool,
   error: PropTypes.object,
+  onLoad: PropTypes.bool,
 };
 
 export default Login;

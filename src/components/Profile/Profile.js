@@ -1,51 +1,45 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-
 import useFormWithValidation from "../../hooks/useFormWithValidation";
-
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { VALIDATION_MESSAGES } from "../../utils/validation";
 import {
   PATTERN_EMAIL,
-  INITIALROUTE_ROOT,
+  ROOT,
   PATTERN_USERNAME,
 } from "../../utils/constants";
-import { VALIDATION_MESSAGES } from "../../utils/validation";
 
 function Profile({
   setIsUserLoggedIn,
-  setSearchValueFavoritesMovies,
-  setIsCheckboxFavoritesMoviesChecked,
+  setSearchValueFavoritesFilms,
+  setIsCheckboxFavoritesFilmsEnabled,
   setCurrentUser,
   onUpdate,
-  onLoad,
   isBtnSaveVisible,
   setIsBtnSaveVisible,
   onSuccessMessages,
-  setSuccessMessages,
+  onLoad,
   error,
   setErrorMessages,
+  setSuccessMessages,
 }) {
   const [prevValues, setPrevValues] = useState({});
-
   const navigate = useNavigate();
-
   const currentUser = useContext(CurrentUserContext);
   const { email, name } = currentUser;
-
   const { values, setValues, errors, isValid, setIsValid, handleChange } =
     useFormWithValidation();
 
-  useEffect(() => {
-    setValues({ email, name });
+    useEffect(() => {
+      setValues({ email, name });
+      setIsBtnSaveVisible(false);
+      setSuccessMessages("");
+      setErrorMessages({ updatingUserInfoResponse: "" });
+    }, [navigate]);
 
-    setIsBtnSaveVisible(false);
-    setSuccessMessages("");
-    setErrorMessages({ updatingUserInfoResponse: "" });
-  }, [navigate]);
 
-  function showSaveBtn({ target }) {
+  const showSaveBtn = ({ target }) => {
     setIsBtnSaveVisible(true);
     setSuccessMessages("");
 
@@ -53,40 +47,55 @@ function Profile({
     Array.from(target.closest(".profile__form").children[0].children).forEach(
       (wrapper) => {
         const input = wrapper.children[1];
-
         data[input.name] = input.value;
       }
     );
 
     setPrevValues(data);
-  }
+  };
 
-  function handleSubmit(evt) {
+  const loginOut = () => {
+    localStorage.clear();
+    setCurrentUser((prevUser) => ({
+      ...prevUser,
+      _id: "",
+      email: "",
+      name: "",
+    }));
+    setSearchValueFavoritesFilms("");
+    setIsCheckboxFavoritesFilmsEnabled(false);
+    navigate(ROOT, { replace: true });
+    setIsUserLoggedIn(false);
+  };
+
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
     const { email, name } = values;
-    console.log(prevValues);
-
     onUpdate({
       email: email.trim().replace(/\s/g, ""),
       name: name.trim().replace(/\s+/g, " "),
     });
 
     setIsValid(false);
-  }
+  };
 
-  function loginOut() {
-    localStorage.clear();
-    setCurrentUser({
-      _id: "",
-      email: "",
-      name: "",
-    });
-    setSearchValueFavoritesMovies("");
-    setIsCheckboxFavoritesMoviesChecked(false);
-    navigate(INITIALROUTE_ROOT, { replace: true });
-    setIsUserLoggedIn(false);
-  }
+  const renderSuccess = (type) => {
+    const successMessage = onSuccessMessages?.[type];
+    return successMessage && !error?.[type] ? (
+      <span className="success success_visible">{successMessage}</span>
+    ) : null;
+  };
+
+  const renderError = (type) => (
+    <span
+      className={`error${
+        ((type === 'name' || type === 'email') && errors?.[type] && " error_visible") || ""
+      } error_type_server-response`}
+    >
+      {errors?.[type] && VALIDATION_MESSAGES.frontend[type]}
+    </span>
+  );
 
   return (
     <div className="profile">
@@ -115,6 +124,7 @@ function Profile({
                 pattern={PATTERN_USERNAME}
                 disabled={isBtnSaveVisible ? false : true}
               />
+              {renderError("name")}
             </div>
 
             <div className="profile__input-wrapper">
@@ -133,35 +143,12 @@ function Profile({
                 pattern={PATTERN_EMAIL}
                 disabled={isBtnSaveVisible ? false : true}
               />
-              <span
-                className={`error${
-                  ((errors?.email || errors?.name) && " error_visible") || ""
-                } error_type_server-response`}
-              >
-                {errors?.name && VALIDATION_MESSAGES.frontend.name + "\n"}
-                {errors?.email && VALIDATION_MESSAGES.frontend.email}
-              </span>
+              {renderError("email")}
             </div>
           </fieldset>
           <div className="profile__wrapper-btn">
-            <span
-              className={`error${
-                (error?.updatingUserInfoResponse && " error_visible") || ""
-              } error_type_server-response`}
-            >
-              {error?.updatingUserInfoResponse}
-            </span>
-            <span
-              className={`success${
-                (onSuccessMessages?.updatingUserInfoResponse &&
-                  !error?.updatingUserInfoResponse &&
-                  " success_visible") ||
-                ""
-              }`}
-            >
-              {onSuccessMessages?.updatingUserInfoResponse}
-            </span>
-
+            {renderError("updatingUserInfoResponse")}
+            {renderSuccess("updatingUserInfoResponse")}
             {isBtnSaveVisible ? (
               <button
                 className="btn btn-entrance btn-save"
@@ -205,18 +192,18 @@ function Profile({
 }
 
 Profile.propTypes = {
-  setIsUserLoggedIn: PropTypes.func,
-  setSearchValueFavoritesMovies: PropTypes.func,
-  setIsCheckboxFavoritesMoviesChecked: PropTypes.func,
   setCurrentUser: PropTypes.func,
-  onUpdate: PropTypes.func,
-  onLoad: PropTypes.bool,
-  isBtnSaveVisible: PropTypes.bool,
-  setIsBtnSaveVisible: PropTypes.func,
-  onSuccessMessages: PropTypes.any,
   setSuccessMessages: PropTypes.func,
   error: PropTypes.object,
+  onSuccessMessages: PropTypes.any,
+  setSearchValueFavoritesFilms: PropTypes.func,
+  setIsCheckboxFavoritesFilmsEnabled: PropTypes.func,
+  setIsBtnSaveVisible: PropTypes.func,
   setErrorMessages: PropTypes.func,
+  onUpdate: PropTypes.func,
+  onLoad: PropTypes.bool,
+  setIsUserLoggedIn: PropTypes.func,
+  isBtnSaveVisible: PropTypes.bool,
 };
 
 export default Profile;

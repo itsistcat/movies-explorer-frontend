@@ -1,7 +1,8 @@
 import React from "react";
+
 import Promo from "../Promo/Promo.js";
 import AboutProject from "../AboutProject/AboutProject.js";
-import Techs from "../Techs/Techs.js";
+import Technologies from "../Technologies/Technologies.js";
 import AboutMe from "../AboutMe/AboutMe.js";
 import Portfolio from "../Portfolio/Portfolio.js";
 import Footer from "../Footer/Footer.js";
@@ -12,7 +13,7 @@ function Main() {
       <main>
         <Promo />
         <AboutProject />
-        <Techs />
+        <Technologies />
         <AboutMe />
         <Portfolio />
       </main>

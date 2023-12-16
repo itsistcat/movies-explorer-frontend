@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import CardList from "../CardList/CardList";
 import Footer from "../Footer/Footer";
 
-function Movies({
-  movies,
-  onSearch,
-  setIsSearchRequestInProgress,
-  searchFormValue,
-  hasUserSearched,
-  isFilterCheckboxChecked,
-  onFilter,
-  onMovieSelect,
-  onLoad,
-  error,
-}) {
+const Movies = ({
+  movies: films,
+  onSearch: searchHandler,
+  setIsSearchRequestInProgress: setInProgress,
+  searchFormValue: searchValue,
+  hasUserSearched: userSearched,
+  isFilterCheckboxChecked: checkboxChecked,
+  onFilter: filterHandler,
+  onLoad: loading,
+  error: movieError,
+  onMovieSelect: selectMovie,
+}) => {
   const [prevValueMovies, setPrevValueMovies] = useState("");
   const icon = (
     <svg
@@ -34,39 +34,41 @@ function Movies({
   return (
     <>
       <main>
-      <SearchForm
-          onSearch={onSearch}
-          setIsSearchRequestInProgress={setIsSearchRequestInProgress}
-          searchFormValue={searchFormValue}
-          onFilter={onFilter}
-          isFilterCheckboxChecked={isFilterCheckboxChecked}
+        <SearchForm
+          onSearch={searchHandler}
+          setIsSearchRequestInProgress={setInProgress}
+          searchFormValue={searchValue}
+          onFilter={filterHandler}
+          isFilterCheckboxChecked={checkboxChecked}
           valueRequired={true}
           prevValue={prevValueMovies}
           setPrevValue={setPrevValueMovies}
         />
-        <MoviesCardList
-          movies={movies}
+        <CardList
+          movies={films}
           icon={icon}
-          onMovieSelect={onMovieSelect}
-          onLoad={onLoad}
-          hasUserSearched={hasUserSearched}
-          error={error}
+          onMovieSelect={selectMovie}
+          onLoad={loading}
+          hasUserSearched={userSearched}
+          error={movieError}
         />
       </main>
       <Footer />
     </>
   );
-}
+};
+
 Movies.propTypes = {
   movies: PropTypes.array,
-  onSearch: PropTypes.func,
-  setIsSearchRequestInProgress: PropTypes.func,
   searchFormValue: PropTypes.string,
-  hasUserSearched: PropTypes.bool,
-  onMovieSelect: PropTypes.func,
-  onLoad: PropTypes.bool,
   onFilter: PropTypes.func,
   isFilterCheckboxChecked: PropTypes.bool,
+  onSearch: PropTypes.func,
+  onMovieSelect: PropTypes.func,
+  setIsSearchRequestInProgress: PropTypes.func,
   error: PropTypes.object,
+  hasUserSearched: PropTypes.bool,
+  onLoad: PropTypes.bool,
 };
+
 export default Movies;
