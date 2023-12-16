@@ -1,15 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { VALIDATION_MESSAGES } from "../../utils/validation";
 import {
   PATTERN_EMAIL,
   ROOT,
   PATTERN_USERNAME,
 } from "../../utils/constants";
-
 
 function Profile({
   setIsUserLoggedIn,
@@ -34,7 +33,6 @@ function Profile({
 
     useEffect(() => {
       setValues({ email, name });
-
       setIsBtnSaveVisible(false);
       setSuccessMessages("");
       setErrorMessages({ updatingUserInfoResponse: "" });
@@ -151,7 +149,6 @@ function Profile({
           <div className="profile__wrapper-btn">
             {renderError("updatingUserInfoResponse")}
             {renderSuccess("updatingUserInfoResponse")}
-
             {isBtnSaveVisible ? (
               <button
                 className="btn btn-entrance btn-save"

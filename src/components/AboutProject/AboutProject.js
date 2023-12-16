@@ -1,5 +1,4 @@
 import React from "react";
-
 import AboutProjectSubject from "../AboutProjectSubject/AboutProjectSubject";
 import NumWeeks from "../NumWeeks/NumWeeks";
 
@@ -9,14 +8,17 @@ export default function AboutProject() {
       <div className="wrapper section-wrapper about-project__wrapper">
         <h2 className="section-heading">О проекте</h2>
         <div className="layout-2-column">
+
           <AboutProjectSubject
             heading={"Дипломный проект включал 5 этапов"}
             paragraph={"Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки."}
           />
+
           <AboutProjectSubject
             heading={"На выполнение диплома ушло 5 недель"}
             paragraph={"У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься."}
           />
+
         </div>
         <NumWeeks />
         <div className="about-project__web-development">

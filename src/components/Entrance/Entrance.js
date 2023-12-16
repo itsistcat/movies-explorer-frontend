@@ -17,8 +17,6 @@ function Entrance({
 }) {
   const href = useMatch({ path: `${window.location.pathname}`, end: false });
   const isLoginHref = href.pathname.endsWith("/signin");
-  console.log(isLoginHref);
-
   const renderInputs = () => children.slice(0, -1);
   const renderLink = () => children.slice(-1);
 
@@ -46,7 +44,6 @@ function Entrance({
             >
               {error?.registrationRes || error?.authorizationRes}
             </span>
-
             <button
               className="btn btn-entrance"
               type="submit"

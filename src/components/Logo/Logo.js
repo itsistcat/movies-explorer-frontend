@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
+import { Link } from "react-router-dom";
 import { ROOT } from "../../utils/constants";
 
 export default function Logo() {

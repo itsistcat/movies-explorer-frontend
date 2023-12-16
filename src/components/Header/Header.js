@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Outlet, Link, useMatch } from "react-router-dom";
 import PropTypes from "prop-types";
 import useWindowSize from "../../hooks/useWindowSize.js";
-import Logo from "../Logo/Logo.js";
 import NavLinks from "../NavLinks/NavLinks.js";
 import BurgerMenu from "../BurgerMenu/BurgerMenu.js";
+import Logo from "../Logo/Logo.js";
 import {
   SIGNUP,
   SIGNIN,

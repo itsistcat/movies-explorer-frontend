@@ -1,4 +1,5 @@
 import React from "react";
+
 import Promo from "../Promo/Promo.js";
 import AboutProject from "../AboutProject/AboutProject.js";
 import Technologies from "../Technologies/Technologies.js";

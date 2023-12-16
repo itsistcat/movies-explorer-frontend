@@ -4,9 +4,9 @@ export default function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-
   const handleChange = ({ target }) => {
     const { name, value } = target;
+
 // Обновление значений полей
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });

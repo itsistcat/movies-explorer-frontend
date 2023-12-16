@@ -11,9 +11,9 @@ function Input({
   maxLength,
   autoComplete,
   onChange,
-  errorCondition,
   errorMessage,
   pattern,
+  errorCondition,
  }) {
   return (
     <div className="wrapper-input">
